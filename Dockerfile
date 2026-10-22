@@ -11,6 +11,8 @@ RUN echo "Installing Nginx Web server ..." \
  && certbot --version \
  && rm -rf /var/lib/apt/lists/*
 
+COPY nginx.conf /etc/nginx/nginx.conf
+
 RUN echo "===============================================" \
  && echo "Image Building Completed, Enjoy!"
 
