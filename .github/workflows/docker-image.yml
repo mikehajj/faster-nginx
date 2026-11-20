@@ -15,11 +15,19 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --tag mikehajj/faster-nginx:latest
+      run: |
+        docker build . \
+          --tag mikehajj/faster-nginx:latest \
+          --tag mikehajj/faster-nginx:noble \
+          --tag mikehajj/faster-nginx:24.04
     - name: Login to Docker
       run: docker login --username mikehajj --password $docker_pwd
       env: 
         docker_pwd: ${{ secrets.DOCKER_PWD }}
     - name: Push Image to Docker Hub
-      run: docker push mikehajj/faster-nginx:latest
-
+      # Only push on push events (not PRs)
+      if: github.event_name == 'push'
+      run: |
+        docker push mikehajj/faster-nginx:latest
+        docker push mikehajj/faster-nginx:noble
+        docker push mikehajj/faster-nginx:24.04
