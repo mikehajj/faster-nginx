@@ -6,8 +6,11 @@ Nginx + Certbot on top of `mikehajj/faster-ubuntu`.
 - `mikehajj/faster-ubuntu:latest`
 
 ### Packages
-- Nginx
+- Nginx (Ubuntu 24.04 security: **1.24.0-2ubuntu7.20+** for NGINX2Root / EC-3742)
 - Certbot (`certbot`, `python3-certbot-nginx`)
+
+### Security rebuild
+Rebuild after Ubuntu nginx security updates so the image picks up the distro backport (USN-9159-1). Confirm package version in the GitHub Actions build log (`dpkg-query -W nginx`).
 
 ### Image
 ```
